@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <title>苏言苏语</title>
+    <style>
+        :root {
+            --primary: #1e88e5;
+        }
+    </style>
+</head>
+<body>
+<main class="container">
+    <div class="row">
+        <div class="col-12">
+            <hgroup>
+                <h1>苏言苏语</h1>
+                <h3>苏总名言录</h3>
+            </hgroup>
+        </div>
+        <div>
+            {% for s in saying %}
+                <article>
+                    <small>No.{{ s.id }}</small>
+                    <p style="white-space: pre-wrap">{{ s.saying }}</p>
+                </article>
+            {% endfor %}
+        </div>
+        <div>
+            <button onclick="showDialog()">添加更多</button>
+        </div>
+
+
+    </div>
+</main>
+<dialog id="add_new">
+    <article>
+        <header>
+            <a aria-label="Close"></a>
+            添加新的苏总名言
+        </header>
+        <form id="main" action="/put" method="post">
+            <div class="grid">
+                <label for="msg">
+                    <span>名言内容</span>
+                    <textarea type="text" id="msg" name="msg" aria-multiline="true" rows="15" cols="50"
+                              required></textarea>
+                </label>
+            </div>
+        </form>
+        <footer>
+            <div class="grid">
+                <button class="secondary" type="reset" form="main">重置</button>
+                <button class="secondary" onclick="dismissDialog()">取消</button>
+                <button type="submit" form="main">提交</button>
+            </div>
+        </footer>
+    </article>
+</dialog>
+
+<script>
+
+    showDialog = function () {
+        document.getElementById("add_new").setAttribute("open", "");
+    }
+
+    dismissDialog = function () {
+        document.getElementById("add_new").removeAttribute("open");
+    }
+</script>
+</body>
+</html>
